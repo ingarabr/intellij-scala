@@ -59,6 +59,10 @@ sealed abstract class ScLiteralValueExtractor[T](literalTypes: IElementType*) {
   protected def isAvailableFor(literal: ScLiteral): Boolean = true
 }
 
+object ScNullLiteral {
+  def unapply(literal: ScLiteral): Boolean = literal.getFirstChild.getNode.getElementType == kNULL
+}
+
 object ScIntLiteral extends ScLiteralValueExtractor[Int](tINTEGER) {
 
   override protected def cast(value: AnyRef): Int = value match {
