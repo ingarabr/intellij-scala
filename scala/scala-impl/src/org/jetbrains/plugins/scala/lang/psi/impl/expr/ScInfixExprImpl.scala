@@ -7,6 +7,7 @@ package expr
 import com.intellij.lang.ASTNode
 import org.jetbrains.plugins.scala.extensions._
 import org.jetbrains.plugins.scala.lang.psi.api.expr._
+import org.jetbrains.plugins.scala.lang.psi.controlFlow.impl.expr.ScInfixExprCfgBuildingImpl
 import org.jetbrains.plugins.scala.lang.psi.impl.toplevel.synthetic.ScSyntheticFunction
 import org.jetbrains.plugins.scala.lang.psi.types.api.designator.ScProjectionType
 import org.jetbrains.plugins.scala.lang.psi.types.result.{TypeResult, Typeable}
@@ -17,7 +18,9 @@ import org.jetbrains.plugins.scala.lang.resolve.ScalaResolveResult
   * @author Alexander Podkhalyuzin
   *         Date: 06.03.2008
   */
-class ScInfixExprImpl(node: ASTNode) extends MethodInvocationImpl(node) with ScInfixExpr {
+class ScInfixExprImpl(node: ASTNode)
+  extends MethodInvocationImpl(node)
+    with ScInfixExpr with ScInfixExprCfgBuildingImpl {
 
   override def argumentExpressions: Seq[ScExpression] = argsElement match {
     case right if right == left => Seq(right)
